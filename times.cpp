@@ -1,14 +1,14 @@
 #include <iostream>
 #include <vector>
-#include <random>
+#include <cstdlib>
+#include <ctime>
 #include <algorithm>
 
 using namespace std;
 
 int main() {
     // Semente para geração de números aleatórios
-    random_device rd;
-    mt19937 gen(rd());
+    srand(static_cast<unsigned>(time(0)));
 
     // Vetor para armazenar os nomes dos jogadores
     vector<string> jogadores;
@@ -28,12 +28,13 @@ int main() {
     }
 
     // Embaralha os jogadores aleatoriamente
-    shuffle(jogadores.begin(), jogadores.end(), gen);
+    random_shuffle(jogadores.begin(), jogadores.end());
 
-    // Divide os jogadores em dois times iguais
-    int meio = numJogadores / 2;
-    vector<string> time1(jogadores.begin(), jogadores.begin() + meio);
-    vector<string> time2(jogadores.begin() + meio, jogadores.end());
+    // Divide os jogadores em três times iguais
+    int terco = numJogadores / 3;
+    vector<string> time1(jogadores.begin(), jogadores.begin() + terco);
+    vector<string> time2(jogadores.begin() + terco, jogadores.begin() + 2 * terco);
+    vector<string> time3(jogadores.begin() + 2 * terco, jogadores.end());
 
     // Imprime os times
     cout << "\nTime 1:" << endl;
@@ -43,6 +44,11 @@ int main() {
 
     cout << "\nTime 2:" << endl;
     for (const string &nome : time2) {
+        cout << nome << endl;
+    }
+
+    cout << "\nTime 3:" << endl;
+    for (const string &nome : time3) {
         cout << nome << endl;
     }
 
